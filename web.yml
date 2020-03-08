@@ -1,0 +1,13 @@
+---
+- hosts: web
+  gather_facts: False
+  become: true
+  become_method: sudo
+  vars:
+    required_repos:
+      - ppa:nginx/stable
+    packages_required:
+      - nginx
+      - libnginx-mod-http-passenger
+  roles:
+    - web

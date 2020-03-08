@@ -1,0 +1,23 @@
+---
+- name: Add Required PPAs
+  apt_repository:
+    repo: "{{item}}"
+    update_cache: yes
+  with_items:
+    - "{{required_repos}}"
+
+- name: Add an apt key by id from a keyserver
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 561F9B9CAC40B2F7
+
+- name: Add APT Repo
+  apt_repository:
+    repo: deb https://oss-binaries.phusionpassenger.com/apt/passenger bionic main
+    state: present
+
+- name: Install Required Packages
+  apt:
+   update_cache: yes
+   cache_valid_time: 3600
+   name: "{{packages_required}}"
